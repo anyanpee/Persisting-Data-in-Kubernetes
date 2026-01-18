@@ -78,7 +78,7 @@ This command will:
 
 **Screenshot:**
 
-![EKS Cluster Created](screenshots/Eks-cluster-on-console-Screenshot.png)
+![EKS Cluster Created](https://raw.githubusercontent.com/anyanpee/Persisting-Data-in-Kubernetes/master/screenshots/Eks-cluster-on-console-Screenshot.png)
 
 ---
 
@@ -125,7 +125,7 @@ nginx-deployment-76c94d7fbd-p6bh5   1/1     Running   0          2m
 
 **Screenshot:**
 
-![Nginx Pods Running](screenshots/ngnix-pod-created-Screenshot.png)
+![Nginx Pods Running](https://raw.githubusercontent.com/anyanpee/Persisting-Data-in-Kubernetes/master/screenshots/ngnix-pod-created-Screenshot.png)
 
 ---
 
@@ -176,7 +176,7 @@ aws ec2 create-volume --size 1 --region us-east-1 --availability-zone us-east-1c
 
 **Screenshot:**
 
-![EBS Volume Created](screenshots/Ebs-volume-created-Screenshot.png)
+![EBS Volume Created](https://raw.githubusercontent.com/anyanpee/Persisting-Data-in-Kubernetes/master/screenshots/Ebs-volume-created-Screenshot.png)
 
 **Note:** We created this volume but didn't use it due to IAM permission complexity. This demonstrates why PVC with dynamic provisioning is preferred.
 
@@ -201,7 +201,7 @@ nginx-volume-claim   Pending                                      gp2           
 
 **Screenshot:**
 
-![PVC Created](screenshots/PVC-created-Screenshot.png)
+![PVC Created](https://raw.githubusercontent.com/anyanpee/Persisting-Data-in-Kubernetes/master/screenshots/PVC-created-Screenshot.png)
 
 ---
 
@@ -271,7 +271,7 @@ This data persists!
 
 **Screenshot:**
 
-![Data Persistence Test](screenshots/Testing-persistence-data-Screenshot.png)
+![Data Persistence Test](https://raw.githubusercontent.com/anyanpee/Persisting-Data-in-Kubernetes/master/screenshots/Testing-persistence-data-Screenshot.png)
 
 **Key Learning:** Data written to the PVC survives pod restarts and deletions!
 
@@ -296,7 +296,7 @@ website-index-file     1      2s
 
 **Screenshot:**
 
-![ConfigMap Created](screenshots/persisting-data-for-config-map-Screenshot.png)
+![ConfigMap Created](https://raw.githubusercontent.com/anyanpee/Persisting-Data-in-Kubernetes/master/screenshots/persisting-data-for-config-map-Screenshot.png)
 
 ---
 
@@ -338,7 +338,7 @@ kubectl exec -it nginx-deployment-54b59bc9cd-5bwkv -- sh -c "curl localhost:80"
 
 **Screenshot:**
 
-![Nginx Serving ConfigMap](screenshots/Nginx-website-on-browser-Screenshot.png)
+![Nginx Serving ConfigMap](https://raw.githubusercontent.com/anyanpee/Persisting-Data-in-Kubernetes/master/screenshots/Nginx-website-on-browser-Screenshot.png)
 
 **Key Learning:** ConfigMaps are perfect for storing configuration files that don't contain sensitive data.
 
