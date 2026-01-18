@@ -1,0 +1,4 @@
+eksctl_dir/
+eksctl_Windows_amd64.zip
+*.exe
+*.zip

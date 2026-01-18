@@ -1,0 +1,63 @@
+# Kubernetes Data Persistence - Complete Project Workflow
+
+## STEP 1: CREATE CLUSTER (Do this first)
+./eksctl_dir/eksctl.exe create cluster -f cluster-config.yaml
+# Wait 15-20 minutes for completion
+
+## STEP 2: VERIFY CLUSTER
+kubectl get nodes
+kubectl get storageclass
+
+## STEP 3: DEPLOY BASIC NGINX (No Persistence)
+kubectl apply -f nginx-pod.yaml
+kubectl get pods -o wide
+kubectl logs <pod-name>
+kubectl exec -it <pod-name> -- bash
+# Inside pod: cd /etc/nginx/conf.d && ls
+
+## STEP 4: CREATE EBS VOLUME
+# Get node AZ first
+kubectl get pods -o wide
+kubectl get nodes <node-name> -o jsonpath='{.metadata.labels.topology\.kubernetes\.io/zone}'
+
+# Create EBS volume in same AZ
+aws ec2 create-volume --size 1 --region us-east-1 --availability-zone <your-az> --volume-type gp2
+
+# Copy the VolumeId from output
+# Update nginx-ebs-volume.yaml with the VolumeId
+
+## STEP 5: DEPLOY WITH EBS VOLUME
+kubectl delete -f nginx-pod.yaml
+kubectl apply -f nginx-ebs-volume.yaml
+kubectl get pods
+kubectl describe pod <pod-name>
+
+## STEP 6: DEPLOY WITH PVC (Dynamic Provisioning)
+kubectl delete deployment nginx-deployment
+kubectl apply -f nginx-pvc.yaml
+kubectl get pvc
+kubectl describe pvc nginx-volume-claim
+kubectl apply -f nginx-with-pvc.yaml
+kubectl get pvc
+kubectl get pv
+
+## STEP 7: DEPLOY WITH CONFIGMAP
+kubectl delete deployment nginx-deployment
+kubectl delete pvc nginx-volume-claim
+kubectl apply -f nginx-configmap.yaml
+kubectl get configmap
+kubectl apply -f nginx-with-configmap.yaml
+kubectl apply -f nginx-service.yaml
+
+## STEP 8: TEST THE SERVICE
+kubectl port-forward service/nginx-service 8080:80
+# Open browser: http://localhost:8080
+
+## STEP 9: CLEANUP PROJECT RESOURCES
+kubectl delete -f nginx-with-configmap.yaml
+kubectl delete -f nginx-service.yaml
+kubectl delete -f nginx-configmap.yaml
+kubectl delete pvc nginx-volume-claim
+
+## STEP 10: DELETE CLUSTER (After completing all exercises)
+./eksctl_dir/eksctl.exe delete cluster -f cluster-config.yaml

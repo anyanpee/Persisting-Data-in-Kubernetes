@@ -1,0 +1,77 @@
+# Kubernetes Data Persistence - Command Reference
+
+## Basic Commands
+
+# Check storage class
+kubectl get storageclass
+
+# Describe storage class
+kubectl describe storageclass gp2
+
+# Get persistent volumes
+kubectl get pv
+
+# Get persistent volume claims
+kubectl get pvc
+
+# Describe PVC
+kubectl describe pvc nginx-volume-claim
+
+## Deployment Commands
+
+# Apply basic nginx deployment
+kubectl apply -f nginx-pod.yaml
+
+# Apply PVC
+kubectl apply -f nginx-pvc.yaml
+
+# Apply nginx with PVC
+kubectl apply -f nginx-with-pvc.yaml
+
+# Apply ConfigMap
+kubectl apply -f nginx-configmap.yaml
+
+# Apply nginx with ConfigMap
+kubectl apply -f nginx-with-configmap.yaml
+
+# Apply service
+kubectl apply -f nginx-service.yaml
+
+## Troubleshooting Commands
+
+# Get pod details with node information
+kubectl get po -o wide
+
+# Describe pod
+kubectl describe pod <pod-name>
+
+# Check logs
+kubectl logs <pod-name>
+
+# Exec into pod
+kubectl exec -it <pod-name> -- bash
+
+# Port forward service
+kubectl port-forward service/nginx-service 8080:80
+
+## AWS EBS Volume Commands
+
+# Create EBS volume (replace with your AZ)
+aws ec2 create-volume --size 1 --region eu-west-2 --availability-zone eu-west-2c --volume-type gp2
+
+# List EBS volumes
+aws ec2 describe-volumes --region eu-west-2
+
+## Cleanup Commands
+
+# Delete deployment
+kubectl delete deployment nginx-deployment
+
+# Delete service
+kubectl delete service nginx-service
+
+# Delete PVC
+kubectl delete pvc nginx-volume-claim
+
+# Delete ConfigMap
+kubectl delete configmap website-index-file

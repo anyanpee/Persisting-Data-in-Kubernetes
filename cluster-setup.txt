@@ -1,0 +1,20 @@
+# EKS Cluster Management Commands
+
+## Install eksctl (Windows)
+# Using Chocolatey:
+choco install eksctl
+
+# Or download from: https://github.com/weaveworks/eksctl/releases
+
+## Create Cluster
+eksctl create cluster -f cluster-config.yaml
+
+## Delete Cluster (destroys everything)
+eksctl delete cluster -f cluster-config.yaml
+
+## Or delete by name
+eksctl delete cluster --name k8s-persistence-lab --region us-east-1
+
+## Verify cluster
+kubectl get nodes
+kubectl get storageclass
